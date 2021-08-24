@@ -5,27 +5,27 @@ opr = input("\nEnter math operator: ")
 
 num_2 = float(input("\nEnter second number: "))
 
-float_output = None
+result = None
+
+
+if num_1.is_integer(): 
+    num_1 = int(num_1)
+
+if num_2.is_integer(): 
+    num_2 = int(num_2)
+
 
 if opr == "+":
-    float_output = num_1 + num_2
+    result = num_1 + num_2
+    print(f"\n{num_1} + {num_2} = {result}")
 elif opr == "-":
-    float_output = num_1 - num_2
+    result = num_1 - num_2
+    print(f"\n{num_1} - {num_2} = {result}")
 elif opr == "/":
-    float_output = num_1 / num_2
+    result = num_1 / num_2
+    print(f"\n{num_1} / {num_2} = {result}")
 elif opr == "*":
-    float_output = num_1 * num_2
+    result = num_1 * num_2
+    print(f"\n{num_1} * {num_2} = {result}") 
 else:
-    print("\nInvalid math operator, exiting program")
-
-
-if float_output:
-    
-    int_output = int(float_output)
-
-    if int_output == float_output:
-        result = int_output
-    else:
-        result = float_output
-
-    print(f"\n{result}")
+    print("\nInvalid math operator")
