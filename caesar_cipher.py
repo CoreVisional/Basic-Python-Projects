@@ -1,66 +1,54 @@
 
-# This program currently can only check for lowercase strings.
+from string import ascii_lowercase as ALPHABETS
 
 
-def encrypt_message(plain_text):
+def get_cipher_text(new_shift, character):
     """
-    Checks whether or not the string is an uppercase or lowercase from A to Z using the isalpha() string method.
-
-    Adds 26 (there are a total of 26 letters in the English alphabet) to ord_num value if it has a 
-    smaller value than the ordinal value for "a" and then concatenates the encrypted value to enrypted_message.
-
-    Concatenates the original letter to decrypted_message if the letter was not a lowercase.
-
-    Returns a string of the encrypted message in lowercase.
+    Returns new character given a new shift key.
+    Returns the original symbol to the decrypted result if a letter in the message is not found in ALPHABETS
     """
 
-    offset = -10
+    if character in ALPHABETS:
+        return ALPHABETS[new_shift]
+    return character
 
-    enrypted_message = ""
 
-    for char in plain_text:
-        if char.isalpha():
-            ord_num = ord(char) + offset
-
-            if ord_num < ord('a'):
-                ord_num += 26 
-
-            enrypted_message += chr(ord_num)
-        else:
-            enrypted_message += char
+def decode_ciphered_text(message, offset):
+    """
+    Initializes an empty string as the decrypted result from building up each letter.
+    Loops through every letter in the message.
+    Finds the first occurence of the letter and shifts the character with the given POSITIVE offset.
+    Reduces any number greater than 26 to a number from 0 to 25 using the modulo operator.
+    Adds each decrypted letter into decrypted result using new_char_position as an index to the string ALPHABETS
+    """
     
-    return enrypted_message
-
-
-def decrypt_message(plain_text):
-    """
-    Checks whether or not the string is an uppercase or lowercase from A to Z using the isalpha() string method.
-
-    Subtracts 26 (there are a total of 26 letters in the English alphabet) from ord_num value if it has a 
-    larger value than the ordinal value for "z" and then concatenates the decrypted value to decrypted_message.
-
-    Concatenates the original letter to decrypted_message if the letter was not a lowercase.
-
-    Returns a string of the decrypted message in lowercase.
-    """
-
-    offset = 10
-
-    decrypted_message = ""
-
-    for char in plain_text:
-        if char.isalpha():
-            ord_num = ord(char) + offset
-
-            if ord_num > ord('z'):
-                ord_num -= 26 
-
-            decrypted_message += chr(ord_num)
-        else:
-            decrypted_message += char
+    decrypted_result = ""
     
-    return decrypted_message
+    for char in message:
+        new_char_position = (ALPHABETS.find(char) + offset) % len(ALPHABETS)
+        decrypted_result += get_cipher_text(new_char_position, char)
 
-print(encrypt_message("hey there! this is an example of a caesar cipher. were you able to decode it? i hope so! send me a message back with the same offset!"))
+    return decrypted_result
 
-print(decrypt_message("xuo jxuhu! jxyi yi qd unqcfbu ev q squiqh syfxuh. muhu oek qrbu je tusetu yj? y xefu ie! iudt cu q cuiiqwu rqsa myjx jxu iqcu evviuj!"))
+
+def encode_plain_text(message, offset):
+    """
+    Initializes an empty string as the decrypted result from building up each letter.
+    Loops through every letter in the message.
+    Finds the first occurence of the letter and shifts the character with the given NEGATIVE offset.
+    Reduces any number greater than 26 to a number from 0 to 25 using the modulo operator.
+    Adds each decrypted letter into decrypted result using new_char_position as an index to the string ALPHABETS
+    """
+    
+    encrypted_message = ""
+    
+    for char in message:
+        new_char_value = (ALPHABETS.find(char) - offset) % len(ALPHABETS)
+        encrypted_message += get_cipher_text(new_char_value, char)
+
+    return encrypted_message
+
+
+print(decode_ciphered_text("jxu evviuj veh jxu iusedt cuiiqwu yi vekhjuud.", 10))
+
+print(encode_plain_text("hey there! this is an example of a caesar cipher. were you able to decode it?", 10))
