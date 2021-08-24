@@ -1,79 +1,107 @@
 
 import random
 
-name = input("\n\nEnter your username: ")
 
-print("\n\nWelcome to Guess The Number, " + name)
+def welcome_user():
+    
+    while True:
+        name = input("\n\nEnter your username: ")
 
-while True:
-    try:
-        # User can set the number they want to guess up to
-        # They may find it difficult to win the game if they set their upper bound to a larger number
-        upper_bound = int(input("\n\nEnter a number for an upper bound: "))
-        break
-    except ValueError:
-        print("\nInvalid value. \nInput must be an integer number.")
+        if name != "":
+            print("\n\nWelcome to Guess The Number, " + name)
+            return name
+        else:
+            print("\nUsername Required!")
 
-random_num = random.randint(1, upper_bound)
 
-# Player has not yet made a guess, so guess_num is set to None by default
-guess_num = None
+def validate_input(user_input):
 
-# Number of times for the user to get the correct number
-guess_count = 0
+    while True:
+        try:
+            return int(input(user_input))
+        except ValueError:
+            print("\n\nValue must be an integer. \n\nTry again.")
 
-# Number of times that user can guess the number
-guess_limit = 3
+            
+def get_upper_bound():
 
-print("\n\tYou will only have", guess_limit, "tries to guess the number.\n")
+    while True:
+        guess_number_maximum = validate_input("\n\nEnter a number for an upper bound: ")
 
-# To simplify if/else in determining the correct answers from the user input
-# User can retry or keep playing the game when answering the prompt with any of the values in choice_yes
-# Entering any of the values in choice_no will exit the program
-choice_yes = ["Yes", "yes", "Y", "y"]
-choice_no = ["No", "no", "N", "n"]
+        if guess_number_maximum < 1:
+            print("\nYour upper bound must be greater than one.")
+        else:
+            return guess_number_maximum
 
-while guess_count < guess_limit:
-    guess_num = int(input("\n\nEnter a number between 1 and " + str(upper_bound) + ": "))
-    guess_count += 1
-    if guess_num == random_num:
-        print("\n\n\U0001F44F Congratulation, you guessed the number!\U0001F44F")
-        if guess_count == 1 and guess_num == random_num:
-            print("\nIt took you", guess_count, "try to guess the number.\n")
-        elif guess_count == guess_limit and guess_num == random_num:
-            print("\nNice One! You guessed the number on your last try.")
-        else:    
-            print("\nIt took you", guess_count, "tries to guess the number.\n")
 
-        keep_playing = True
+def ask_user_yes_no(yes_no_question):
+
+    choice_yes = ['yes', 'y']
+    choice_no = ['no', 'n']
+
+    while True:
+        user_choice = input(yes_no_question).lower()
+
+        if user_choice in choice_yes:
+            return True
+        elif user_choice in choice_no:
+            return False
+        else:
+            print("\n\nInvalid Input. Try again.")
+
+
+GUESS_LIMIT = 3
+ 
+
+def play_game(upper_bound, player_name):
+
+    guess_count = 0
+
+    random_number = random.randint(1, upper_bound)
+
+    while True:
+        user_number = validate_input("\n\nGuess the number between 1 and " + str(upper_bound) + ": ")
+        guess_count += 1
+    
+        if user_number == random_number:
+            print(f"\n\n\U0001F44F Congratulation, {player_name}, you guessed the number!\U0001F44F")
+            count_guess_attempt(guess_count)
+            return True
+        elif user_number > random_number:
+            print("Your guessing number is too high. Try guessing lower.")
+        else:
+            print("Your guessing number is too low. Try guessing higher.")
         
-        while keep_playing:
-            play_again = input("\n\nWould you like to play again? (Y/N): ")
-            if play_again in choice_yes:
-                keep_playing = False
-                upper_bound = int(input("\n\nEnter a number for an upper bound: "))
-                guess_count = 0
-            elif play_again in choice_no:
-                exit()
-            else:
-                print("\n\nInvalid input. Make sure you enter a valid response.")
+        if guess_count >= GUESS_LIMIT:
+            print(f"\n\nSorry, {player_name}, you lost the game. You ran out of guesses. Better luck next time!")
+            return False
 
-    elif guess_num > random_num:
-        print("Your guessing number is too high. Try guessing lower.")
-    elif guess_num < random_num:
-        print("Your guessing number is too low. Try guessing higher.")
 
-    if guess_count >= guess_limit:
-        print("\n\nSorry, you lost the game. You ran out of guesses. Better luck next time!")
+def count_guess_attempt(guess_attempt):
 
-        retry_game = True
+    if guess_attempt == 1:
+        print(f"\nIt took you {guess_attempt} try to guess the number.\n")
+    elif guess_attempt == GUESS_LIMIT:
+        print("\nNice One! You guessed the number on your last try.")
+    else:    
+        print(f"\nIt took you {guess_attempt} tries to guess the number.\n")
 
-        while retry_game:
-            retry = input("\n\nDo you want to retry? (Y/N): ")
-            if retry in choice_yes:
-                guess_count = 0
-                retry_game = False
-            elif retry in choice_no:
-                exit()
-            else:
-                print("\nPlease enter a valid input.")
+
+def should_play_again():
+
+    user_name = welcome_user()
+
+    may_change_upper_limit = True
+
+    while True:
+        if may_change_upper_limit:
+            upper_limit = get_upper_bound()
+
+        may_change_upper_limit = play_game(upper_limit, user_name)
+
+        if not ask_user_yes_no("\n\nWould you like to play again? (Y/N): "):
+            print("\n\nExiting game...\n\n")
+            exit()
+
+
+should_play_again()
