@@ -30,7 +30,6 @@ def ask_user_yes_no(yes_no_question):
     Returns True if the user answer the prompt with any of the values in choice_yes.
     Returns False if the user enters any of the values in choice_no
     """
-    
 
     choice_yes = ["yes", 'y']
     choice_no = ["no", 'n']
@@ -46,62 +45,83 @@ def ask_user_yes_no(yes_no_question):
         print("\n\nInvalid Input. Try again.")
 
 
-def input_coin_sides():
+def flip_coin():
     """
-    Asks the player to input "Heads" or "Tails".
-    This is repeated until the user has given an input that matches with COIN_SIDES's values.
-    Returns a string containing the player's input.
+    Returns a randomized coin side.
+    """
+
+    return random.choice(COIN_SIDES)
+
+
+def get_player_guess():
+    """
+    Prompts the player to input "Heads" or "Tails".
+    This process execution is repeated until a valid input is received.
+    Returns a string containing the player's input.  
     """
 
     while True:
-        player_guess = input("\n\nHeads or Tails?: ").lower()
+        player_guess = input("\nHeads or Tails?: ").lower()
 
         if player_guess in COIN_SIDES:
-            return player_guess  
-            
-        print("\n\nHeads or Tails only!")
+            return player_guess
+        
+        print("\nHeads or Tails only!")
 
 
 def start_game(username):
     """
-    Plays 3 rounds of Flip The Coin
+    Plays 3 rounds of Flip The Coin.
 
     Keep count of the number of times the player wins or loses.
     Increments the counter by 1 for each win and loss.
 
     Prints out a message indicating which round the player is currently in and the 
     number of rounds left to play.
+    Increments the round by 1 after the end of each round.
 
-    Prints out multiple messages containing the side of the coin that the player has flipped and
-    the coin side that the player has guessed.
-
-    Prints out a message indicating whether or not that the player won the round.
+    Prints "Round Won" if round_result is True, or "Round Lost" if round_result is False.
 
     Prints the number of wins and losses after the game ends, then prints a message
     to the player for winning or losing all the rounds.
     """
 
-    random_flip = random.choice(COIN_SIDES)
-
-    wins, losses = (0, 0)
-
     game_round = 3
 
-    for count_round in range(1, game_round + 1):
-        print(f"\n\nStarting round {count_round} of {game_round}") 
-        user_coin_flip = input_coin_sides()
+    wins, losses = (0, 0)
+    
+    for count_round in range(game_round):
+        print(f"\n\nStarting round {count_round + 1} of {game_round}")
+        round_result = run_round()
 
-        print(f"\n\nYou flipped: {user_coin_flip.title()}")
-        print(f"\nYou guessed: {random_flip.title()}")
-
-        if user_coin_flip == random_flip:
+        if round_result == True:
             print(f"\n\n** Round Won **".upper())
             wins += 1
         else:
             print("\n\n** Round Lost **".upper())
             losses += 1
-    
+
     print_game_result(wins, losses, game_round, username)
+
+
+def run_round():
+    """
+    Runs a single round of the game and returns a True / False result.
+
+    Prints out both results containing the side of the coin that the player has flipped and
+    the coin side that the player has guessed.
+    """
+
+    player_guess = get_player_guess()
+
+    actual_flip = flip_coin()
+
+    round_outcome = player_guess == actual_flip
+    
+    print(f"\n\nYou flipped: {player_guess}")
+    print(f"\nYou guessed: {actual_flip}")
+
+    return round_outcome
 
 
 def print_game_result(round_won, round_lost, total_round, player):
@@ -140,4 +160,4 @@ def should_play_again():
             break
 
 
-should_play_again() 
+should_play_again()
