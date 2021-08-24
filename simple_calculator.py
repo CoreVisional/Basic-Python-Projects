@@ -22,7 +22,8 @@ MATH_OPERATIONS = """\n\nList of math operations:
 """
 
 
-# A dictionary dispatch that contain options of operations to perform the calculation
+# A dictionary dispatch that contain options of operations
+# to perform the calculation.
 OPERATIONS = {
     1: operator.add,
     2: operator.sub,
@@ -62,9 +63,11 @@ def count_number_input():
     """
     while True:
         try:
-            count_input = int(input("\nHow many number would you like to calculate?: "))
+            count_input = int(
+                input("\nHow many number would you like to calculate?: "))
         except ValueError:
-            print("\nINVALID INPUT - Field must not be blank or contained non-integer or non-numerical values.")
+            print("\nINVALID INPUT - Field must not be blank or "
+                  "contained non-integer or non-numerical values.")
         else:
             return count_input
 
@@ -75,7 +78,8 @@ def get_number_list():
 
     while True:
         try:
-            numbers_list = [float(input("\nNumbers: ")) for _ in range(input_amount)]
+            numbers_list = [float(input("\nNumbers: "))
+                            for _ in range(input_amount)]
         except ValueError:
             print("\nInvalid input, try again.")
             print("\nPrompts must not contain a null or non-numerical values.")
@@ -90,7 +94,7 @@ def select_choice():
 
     Checks user's selection for ValueError and skip if none is found.
 
-    Prints out a message if the user has selected an option 
+    Prints out a message if the user has selected an option
     beyond the specified range of options.
 
     """
@@ -98,11 +102,12 @@ def select_choice():
 
     while True:
         try:
-            user_choice = int(input("Select an option | 1 | 2 | 3 | 4 | 5 |: "))          
+            user_choice = int(
+                input("Select an option | 1 | 2 | 3 | 4 | 5 |: "))
         except ValueError:
             print("\nInvalid Input.\n")
             continue
-        
+
         if user_choice <= 0 or user_choice > 5:
             print("\nOption selected must be from 1 to 5 only!\n")
         else:
@@ -140,12 +145,12 @@ def calculate(numbers, choice):
 
 def format_value(option: int) -> str:
     """Return the result unchanged if user selects the 4th option (division).
-    
-    Leaves the result of a division as a float number using 
+
+    Leaves the result of a division as a float number using
     the '' (None) format specifier.
 
-    Formats the result on the rest of the operations using 
-    the 'n' format specifier. 
+    Formats the result on the rest of the operations using
+    the 'n' format specifier.
 
     """
     return 'n' if option != 4 else ''
@@ -183,7 +188,8 @@ def should_calculate_again():
 
         start_program()
 
-        if not ask_user_yes_no("\n\nWould you like to perform another calculation? (Y/N): "):
+        if not ask_user_yes_no("\n\nWould you like to perform "
+                               "another calculation? (Y/N): "):
             print("\n\n-----Program Exited-----\n")
             break
 
