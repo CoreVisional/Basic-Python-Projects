@@ -5,7 +5,7 @@ from string import ascii_letters
 def get_word():
     """
     Asks the user to input a word.
-    Returns a string containing the user's input. 
+    Returns a string containing the user's input.
     """
 
     user_word = input("\n\nEnter a word: ")
@@ -16,10 +16,13 @@ def get_word():
 def ask_user_yes_no(yes_no_question):
     """
     To simplify if/else in determining the correct answers from the user input.
-    Returns True if the user answer the prompt with any of the values in choice_yes.
-    Returns False if the user enters any of the values in choice_no
+
+    Returns True if the user answer the prompt with
+    any of the values in choice_yes.
+
+    Returns False if the user enters any of the values in choice_no.
     """
-    
+
     choice_yes = ["yes", 'y']
     choice_no = ["no", 'n']
 
@@ -30,7 +33,7 @@ def ask_user_yes_no(yes_no_question):
             return True
         elif user_choice in choice_no:
             return False
-        
+
         print("\n\nInvalid Input. Try again.")
 
 
@@ -56,27 +59,33 @@ def generate_points():
     Returns the extended list of integers.
     """
 
-    points = [1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3, 4, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10] * 2
+    points = [1, 3, 3, 2, 1, 4, 2, 4, 1, 8, 5, 1, 3,
+              4, 1, 3, 10, 1, 1, 1, 1, 4, 4, 8, 4, 10] * 2
 
     return points
 
 
 def map_letters_points():
     """
-    Calls generate_letters function and assign the returned value to letter_list
-    Calls generate_points function and assign the returned value to point_list
+    Calls generate_letters function and assign the
+    returned value to letter_list.
+
+    Calls generate_points function and assign the returned value to point_list.
 
     Maps each letter to point with letter being the key and point as the value.
 
-    Handles blank tiles by assigning 0 to letter_to_points if the user did not input anything.
+    Handles blank tiles by assigning 0 to letter_to_points
+    if the user did not input anything.
 
-    Returns a dictionary that has the elements of letter_list as keys and the elements of point_list as values.
+    Returns a dictionary that has the elements of letter_list as keys
+    and the elements of point_list as values.
     """
-    
+
     letter_list = generate_letters()
     point_list = generate_points()
 
-    letter_to_points = {letter: point for letter, point in zip(letter_list, point_list)}
+    letter_to_points = {letter: point for letter,
+                        point in zip(letter_list, point_list)}
 
     letter_to_points[" "] = 0
 
@@ -85,20 +94,22 @@ def map_letters_points():
 
 def score_word(word):
     """
-    Calls map_letters_points function and assign the returned value to letter_points
+    Calls map_letters_points function and assign the
+    returned value to letter_points.
 
     Sets point_total equals to 0
 
-    Iterates through the letters in word and adds the point value of each letter to point_total from
-    letter_points dictionary.
+    Iterates through the letters in word and adds the point value of
+    each letter to point_total from letter_points dictionary.
 
     Adds 0 to point_total if the letter is not found in letter_points.
 
-    Returns an integer of the total points that the user has scored with the give word. 
+    Returns an integer of the total points that the
+    user has scored with the give word.
     """
 
     letter_points = map_letters_points()
-    
+
     total_point = 0
 
     for key in word:
@@ -112,7 +123,8 @@ def play_word():
     Gets a word input from the user.
     Sums the point of each letter from the given word.
 
-    Pluralizes the word "point" if the scored_points is either 0 or more than 1.
+    Pluralizes the word "point" if the scored_points is
+    either 0 or more than 1.
 
     Asks the user if they want play again.
     Asks the user to input word if the user wants to play again.
