@@ -194,8 +194,7 @@ def should_calculate_again():
             break
 
 
-if __name__ == "__main__":
+doctest.testmod()
 
-    doctest.testmod()
+should_calculate_again()
 
-    should_calculate_again()
