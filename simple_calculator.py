@@ -73,7 +73,12 @@ def count_number_input():
 
 
 def get_number_list():
+    """Ask the user to input that they wish to calculate.
+    
+    Displays an error message if the prompt contains a null
+    or non-numerical values.
 
+    """
     input_amount = count_number_input()
 
     while True:
@@ -197,4 +202,3 @@ def should_calculate_again():
 doctest.testmod()
 
 should_calculate_again()
-
