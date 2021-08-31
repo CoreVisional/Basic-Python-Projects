@@ -192,21 +192,15 @@ def calculate_mode(numbers_list: list) -> Union[str, list]:
         1.0
 
     """
-    counter = {}
-
-    mode = []
-
-    for number in set(numbers_list):
-        counter[number] = numbers_list.count(number)
+    counter = {number: numbers_list.count(number)
+               for number in set(numbers_list)}
 
     counts = set(counter.values())
 
     if len(counts) == 1:
         return "No Mode Found!"
 
-    for key, count in counter.items():
-        if count == max(counts):
-            mode.append(key)
+    mode = [key for key, count in counter.items() if count == max(counts)]
 
     return mode if len(mode) > 1 else mode.pop()
 
