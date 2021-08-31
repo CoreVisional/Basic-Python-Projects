@@ -197,7 +197,7 @@ def calculate_mode(numbers_list: list) -> Union[str, list]:
 
     if len(set(numbers_list)) == 1:
         return set(numbers_list).pop()
-    elif len(counts:= set(counter.values())) == 1:
+    elif len(counts := set(counter.values())) == 1:
         return "No Mode Found!"
 
     mode = [key for key, count in counter.items() if count == max(counts)]
