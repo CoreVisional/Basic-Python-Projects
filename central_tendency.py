@@ -1,5 +1,6 @@
 
 from typing import Union
+from ast import literal_eval
 import doctest
 
 
@@ -59,8 +60,7 @@ def get_dataset() -> list:
     while True:
         try:
             user_input = input("\nEnter Dataset: ").replace(",", " ").split()
-            dataset = [float(num) if '.' in num else int(num)
-                       for num in user_input]
+            dataset = [literal_eval(num) for num in user_input]
         except ValueError:
             print("\nInvalid Input")
             continue
@@ -159,28 +159,29 @@ def calculate_median(numbers_list: list) -> Union[int, float]:
     return median
 
 
-def calculate_mode(numbers_list: list) -> Union[str, list]:
+def calculate_mode(numbers_list: list) -> Union[int, float, str, list]:
     """Calculates median.
 
     Args:
         numbers_list: A list of integer or float numbers.
 
     Returns:
-        str:
-            A message telling the user that no
-            mode was found if the user gave a list of numbers
-            that occur only once.
 
-        list:
-            A list containing integer or float number/s.
+        An int or a float number if trivial cases occurs.
+
+        A message telling the user that no mode was found
+        if the user gave a list of numbers
+        that occur only once.
+
+        A list containing integer or float number/s.
 
     Examples:
 
+        >>> calculate_mode([5, 5, 5, 5])
+        5
+
         >>> calculate_mode([100, 200, 300, 400, 500])
         'No Mode Found!'
-
-        >>> calculate_mode([100, 235, 100, 95, 42, 67])
-        100
 
         >>> calculate_mode([34, 34, 50, 78, 50, 93])
         [34, 50]
@@ -211,8 +212,8 @@ def print_result(num: list) -> None:
     Args:
         num: A list of integers or float.
 
-    Formats the result of mean calculation using
-    locale aware separator.
+    Formats the result of mean and mode calculation
+    using locale aware separator.
 
     """
     choice = select_choice()
