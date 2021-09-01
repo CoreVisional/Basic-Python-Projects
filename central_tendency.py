@@ -6,7 +6,7 @@ import doctest
 
 # Displays a list of options to the user that will
 # calculate the measures of central tendency.
-MEASUREMENTS = """\n\nSelect An Option:
+MEASUREMENTS = """\n\nSelect A Calculation:
 
 1. Mean
 
@@ -45,7 +45,7 @@ def ask_user_yes_no(yes_no_question: str) -> bool:
             print("\n\nInvalid Input. Try again.")
 
 
-def get_dataset() -> list:
+def get_number_dataset() -> list:
     """Asks the user to input the dataset that is needed to
     calculate mean, median, and mode.
 
@@ -58,17 +58,37 @@ def get_dataset() -> list:
 
     """
     while True:
+        user_number_input = input("\nEnter Number Dataset: ").replace(
+            ",", " ").split()
         try:
-            user_input = input("\nEnter Dataset: ").replace(",", " ").split()
-            dataset = [literal_eval(num) for num in user_input]
+            number_dataset = [literal_eval(num) for num in user_number_input]
         except ValueError:
-            print("\nInvalid Input")
+            print(f"\nNumbers Only For Mean and Median!")
+            print(f"\nYour Input: {''.join(user_number_input).strip('')}")
             continue
 
-        if len(dataset) < 2:
+        if len(number_dataset) < 2:
             print("\nPlease enter at least 2 values.")
         else:
-            return dataset
+            return number_dataset
+
+
+def get_mode_dataset() -> list[str]:
+    """Asks the user to input the values into the dataset
+    in order to get the frequency of those values.
+
+    Returns:
+        A list of strings containing the values in a data set.
+
+    Prints out a message if the dataset contains less than 2 values.
+
+    """
+    user_mode_input = input("\nEnter Mode Dataset: ").replace(",", " ").split()
+
+    if len(user_mode_input) < 2:
+        print("\nPlease enter at least 2 values.")
+    else:
+        return user_mode_input
 
 
 def select_choice() -> int:
@@ -87,10 +107,11 @@ def select_choice() -> int:
     print(MEASUREMENTS)
 
     while True:
+        user_choice = input("Select an option | 1 | 2 | 3 |: ")
         try:
-            user_choice = int(input("Select an option | 1 | 2 | 3 |: "))
+            user_choice = int(user_choice)
         except ValueError:
-            print("\nInvalid Input.\n")
+            print(f"\nInvalid Input: {user_choice!r}\n")
             continue
 
         if user_choice > 3:
@@ -159,45 +180,43 @@ def calculate_median(numbers_list: list) -> Union[int, float]:
     return median
 
 
-def calculate_mode(numbers_list: list) -> Union[int, float, str, list]:
-    """Calculates median.
+def find_mode(items_list: list) -> list[str]:
+    """Finds the frequency of a particular value.
 
     Args:
-        numbers_list: A list of integer or float numbers.
+        items_list: A list strings.
 
     Returns:
 
-        An int or a float number if trivial cases occurs.
+        An int or a float number or a string
+        if trivial cases occurs.
 
         A message telling the user that no mode was found
-        if the user gave a list of numbers
+        if the user gave a list of elements
         that occur only once.
 
-        A list containing integer or float number/s.
+        A list containing a string of element/s.
 
     Examples:
 
-        >>> calculate_mode([5, 5, 5, 5])
-        5
-
-        >>> calculate_mode([100, 200, 300, 400, 500])
+        >>> find_mode(['830', '476', '5664', 'Smash Mouth'])
         'No Mode Found!'
 
-        >>> calculate_mode([34, 34, 50, 78, 50, 93])
-        [34, 50]
+        >>> find_mode(['Shrek', 'Shrek', 'is', 'life'])
+        'Shrek'
 
-        >>> calculate_mode([42, 42, 51.5, 51.5, 92, 102])
-        [42, 51.5]
+        >>> find_mode(['3', '3', '3'])
+        '3'
 
-        >>> calculate_mode([1.0, 53, 1, 89, 35])
-        1.0
+        >>> find_mode(['nike', 'nike', 'adidas', '88', '25', '88'])
+        ['nike', '88']
 
     """
-    counter = {number: numbers_list.count(number)
-               for number in set(numbers_list)}
+    counter = {element: items_list.count(element)
+               for element in set(items_list)}
 
-    if len(set(numbers_list)) == 1:
-        return set(numbers_list).pop()
+    if len(set(items_list)) == 1:
+        return set(items_list).pop()
     elif len(counts := set(counter.values())) == 1:
         return "No Mode Found!"
 
@@ -206,24 +225,28 @@ def calculate_mode(numbers_list: list) -> Union[int, float, str, list]:
     return mode if len(mode) > 1 else mode.pop()
 
 
-def print_result(num: list) -> None:
+def print_result(choice: int) -> None:
     """Determines the options selected and display the result.
 
     Args:
-        num: A list of integers or float.
+        choice: An integer to determine which type of calculation
+                based on the user's selection.
 
     Formats the result of mean and mode calculation
     using locale aware separator.
 
     """
-    choice = select_choice()
+    if choice == 1 or choice == 2:
+        mean_median_dataset = get_number_dataset()
+    elif choice == 3:
+        mode_dataset = get_mode_dataset()
 
     if choice == 1:
-        print(f"\nMean: {calculate_mean(num):n}")
+        print(f"\nMean: {calculate_mean(mean_median_dataset):n}")
     elif choice == 2:
-        print(f"\nMedian: {calculate_median(num)}")
+        print(f"\nMedian: {calculate_median(mean_median_dataset)}")
     elif choice == 3:
-        print(f"\nMode: {calculate_mode(num)}")
+        print(f"\nMode: {find_mode(mode_dataset)}")
 
 
 def should_calculate_again():
@@ -245,9 +268,9 @@ def start_calculation() -> None:
     other functions to start the program.
 
     """
-    user_dataset = get_dataset()
+    user_option = select_choice()
 
-    print_result(user_dataset)
+    print_result(user_option)
 
     should_calculate_again()
 
