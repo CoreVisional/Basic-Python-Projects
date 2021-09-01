@@ -5,7 +5,7 @@ from ast import literal_eval
 import doctest
 
 
-# Displays three common measures of central tendency as 
+# Displays three common measures of central tendency as
 # options for the user to select. to the user that will
 COMMON_MEASUREMENTS = """\n\nSelect An Option:
 
@@ -273,7 +273,7 @@ def print_result(mode: str, result: Union[str, list[str]]) -> None:
 
         result: A string or a list of strings containing the result
                 of the selected option.
-                     
+
     """
     print(f"\n{mode}: {result}")
 
