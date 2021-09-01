@@ -5,9 +5,9 @@ from ast import literal_eval
 import doctest
 
 
-# Displays a list of options to the user that will
-# calculate the measures of central tendency.
-MEASUREMENTS = """\n\nSelect A Calculation:
+# Displays three common measures of central tendency as 
+# options for the user to select. to the user that will
+COMMON_MEASUREMENTS = """\n\nSelect An Option:
 
 1. Mean
 
@@ -112,7 +112,7 @@ def select_choice() -> int:
     selects an option that is beyond the specified range of options.
 
     """
-    print(MEASUREMENTS)
+    print(COMMON_MEASUREMENTS)
 
     while True:
         user_choice = input("Select an option | 1 | 2 | 3 |: ")
@@ -188,22 +188,20 @@ def calculate_median(numbers_list: list) -> Union[int, float]:
     return median
 
 
-def find_mode(items_list: list) -> Union[str, list[str]]:
+def find_mode(dataset: Union[str, list[str]]) -> Union[str, list[str]]:
     """Finds the frequency of a particular value.
 
     Args:
-        items_list: A list strings.
+        dataset: A list strings.
 
     Returns:
 
-        An int or a float number or a string
-        if trivial cases occurs.
+        A string if a trivial case occurs or a list
+        containing a string of element/s.
 
         A message telling the user that no mode was found
         if the user gave a list of elements
         that occur only once.
-
-        A string or a list containing a string of element/s.
 
     Examples:
 
@@ -226,10 +224,10 @@ def find_mode(items_list: list) -> Union[str, list[str]]:
         ['b', 'c']
 
     """
-    counter = Counter(items_list)
+    counter = Counter(dataset)
 
-    if len(set(items_list)) == 1:
-        return set(items_list).pop()
+    if len(set(dataset)) == 1:
+        return set(dataset).pop()
     elif len(counts := set(counter.values())) == 1:
         return "No Mode Found!"
 
@@ -238,28 +236,46 @@ def find_mode(items_list: list) -> Union[str, list[str]]:
     return mode if len(mode) > 1 else mode.pop()
 
 
-def print_result(choice: int) -> None:
-    """Determines the options selected and display the result.
+def check_choices(option: int):
+    """Determines the option selected and perform a measure
+    of central tendency based on the selected choice.
 
     Args:
-        choice: An integer to determine which type of calculation
+        option: An integer to determine which type of calculation
                 based on the user's selection.
 
-    Formats the result of mean and mode calculation
-    using locale aware separator.
+    Formats the result of mean calculation using locale aware separator.
 
     """
-    if choice == 1 or choice == 2:
-        mean_median_dataset = get_number_dataset()
-    elif choice == 3:
-        mode_dataset = get_mode_dataset()
+    if option == 1 or option == 2:
+        dataset = get_number_dataset()
+    elif option == 3:
+        dataset = get_mode_dataset()
 
-    if choice == 1:
-        print(f"\nMean: {calculate_mean(mean_median_dataset):n}")
-    elif choice == 2:
-        print(f"\nMedian: {calculate_median(mean_median_dataset)}")
-    elif choice == 3:
-        print(f"\nMode: {find_mode(mode_dataset)}")
+    if option == 1:
+        mode_measurement = "Mean"
+        data = f"{calculate_mean(dataset):n}"
+    elif option == 2:
+        mode_measurement = "Median"
+        data = calculate_median(dataset)
+    elif option == 3:
+        mode_measurement = "Mode"
+        data = find_mode(dataset)
+
+    return print_result(mode_measurement, data)
+
+
+def print_result(mode: str, result: Union[str, list[str]]) -> None:
+    """Prints the result of the data set.
+
+    Args:
+        mode: A string that displays the selected option.
+
+        result: A string or a list of strings containing the result
+                of the selected option.
+                     
+    """
+    print(f"\n{mode}: {result}")
 
 
 def should_calculate_again():
@@ -283,7 +299,7 @@ def start_calculation() -> None:
     """
     user_option = select_choice()
 
-    print_result(user_option)
+    check_choices(user_option)
 
     should_calculate_again()
 
