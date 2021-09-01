@@ -1,4 +1,5 @@
 
+from collections import Counter
 from typing import Union
 from ast import literal_eval
 import doctest
@@ -73,22 +74,29 @@ def get_number_dataset() -> list:
             return number_dataset
 
 
-def get_mode_dataset() -> list[str]:
+def get_mode_dataset() -> Union[str, list[str]]:
     """Asks the user to input the values into the dataset
     in order to get the frequency of those values.
 
     Returns:
-        A list of strings containing the values in a data set.
+        Strings or a list of strings containing the values in a data set.
 
     Prints out a message if the dataset contains less than 2 values.
 
     """
-    user_mode_input = input("\nEnter Mode Dataset: ").replace(",", " ").split()
+    while True:
+        user_mode_input = input(
+            "\nEnter Mode Dataset: ").replace(",", " ").split()
 
-    if len(user_mode_input) < 2:
-        print("\nPlease enter at least 2 values.")
-    else:
-        return user_mode_input
+        if len(user_mode_input) == 1:
+            for char in user_mode_input:
+                if len(char) > 1:
+                    return char
+
+        if len(user_mode_input) < 2:
+            print("\nPlease enter at least 2 values.")
+        else:
+            return user_mode_input
 
 
 def select_choice() -> int:
@@ -180,7 +188,7 @@ def calculate_median(numbers_list: list) -> Union[int, float]:
     return median
 
 
-def find_mode(items_list: list) -> list[str]:
+def find_mode(items_list: list) -> Union[str, list[str]]:
     """Finds the frequency of a particular value.
 
     Args:
@@ -195,7 +203,7 @@ def find_mode(items_list: list) -> list[str]:
         if the user gave a list of elements
         that occur only once.
 
-        A list containing a string of element/s.
+        A string or a list containing a string of element/s.
 
     Examples:
 
@@ -211,9 +219,14 @@ def find_mode(items_list: list) -> list[str]:
         >>> find_mode(['nike', 'nike', 'adidas', '88', '25', '88'])
         ['nike', '88']
 
+        >>> find_mode('aabbccc')
+        'c'
+
+        >>> find_mode('abbbccc')
+        ['b', 'c']
+
     """
-    counter = {element: items_list.count(element)
-               for element in set(items_list)}
+    counter = Counter(items_list)
 
     if len(set(items_list)) == 1:
         return set(items_list).pop()
