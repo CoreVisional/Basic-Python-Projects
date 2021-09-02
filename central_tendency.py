@@ -128,7 +128,7 @@ def select_choice() -> int:
             return user_choice
 
 
-def calculate_mean(numbers_list: list) -> float:
+def calculate_mean(numbers_list: Union[list[int, float]]) -> float:
     """Calculates mean.
 
     Args:
@@ -152,7 +152,7 @@ def calculate_mean(numbers_list: list) -> float:
     return sum(numbers_list) / len(numbers_list)
 
 
-def calculate_median(numbers_list: list) -> Union[int, float]:
+def calculate_median(numbers_list: Union[list[int, float]]) -> Union[int, float]:
     """Calculates median.
 
     Args:
@@ -192,7 +192,7 @@ def find_mode(dataset: Union[str, list[str]]) -> Union[str, list[str]]:
     """Finds the frequency of a particular value.
 
     Args:
-        dataset: A list strings.
+        dataset: A string or a list of strings.
 
     Returns:
 
