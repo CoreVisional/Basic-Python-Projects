@@ -4,25 +4,25 @@
 *** PROJECT DESCRIPTION ***
 
 
-Sal runs the biggest shipping company in the tri-county area, Sal’s Shippers.
-Sal wants to make sure that every single one of his customers has the best,
+Alex runs the biggest shipping company in the tri-county area, Alex’s Shippers.
+He wants to make sure that every single one of his customers has the best,
 and most affordable experience shipping their packages.
 
 This program will take the weight of a package and determine the cheapest way
-to ship that package using Sal’s Shippers.
+to ship that package using Alex’s Shippers.
 
 
-Sal’s Shippers has several different options for a customer to ship their package:
+Options for a customer to ship their package:
 
-Ground Shipping         - This shipping option has a small flat charge plus
-                          a rate based on the weight of your package.
+Ground Shipping           -   This shipping option has a small flat charge plus
+                              a rate based on the weight of your package.
 
-Ground Shipping Premium - This shipping option does not charge for weight,
-                          but has a higher flat charge.
+Ground Shipping Premium   -   This shipping option does not charge for weight,
+                              but has a higher flat charge.
 
-Drone Shipping          - This shipping option has no flat charge, but the rate
-                          is based on weight is triple the
-                          rate of ground shipping.
+Drone Shipping            -   This shipping option has no flat charge, but the rate
+                              is based on weight is triple the
+                              rate of ground shipping.
 
 
 ---------------------------------------------------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ Weight of Package	                        Price per Pound	            Flat Charg
 2 lb or less	                                 $1.50	                   $20.00
 Over 2 lb but less than or equal to 6 lb	     $3.00	                   $20.00
 Over 6 lb but less than or equal to 10 lb	     $4.00	                   $20.00
-Over 10 lb	                                     $4.75	                   $20.00
+Over 10 lb	                                   $4.75	                   $20.00
 
 
 ---------------------------------------------------------------------------------------------------------------------------
@@ -59,7 +59,7 @@ Weight of Package	                        Price per Pound	            Flat Charg
 2 lb or less	                                 $1.50	                   $0.00
 Over 2 lb but less than or equal to 6 lb	     $3.00	                   $0.00
 Over 6 lb but less than or equal to 10 lb	     $4.00	                   $0.00
-Over 10 lb	                                     $4.75	                   $0.00
+Over 10 lb	                                   $4.75	                   $0.00
 
 ---------------------------------------------------------------------------------------------------------------------------
 """
@@ -67,7 +67,7 @@ Over 10 lb	                                     $4.75	                   $0.00
 
 def greet_customer():
     """Ask the customer to enter their name as part
-    of welcoming them Sal's Shippers.
+    of welcoming them Alex's Shippers.
 
     This is repeated until the customer keyed in their name.
 
@@ -80,7 +80,7 @@ def greet_customer():
         name = input("\n\nEnter your name: ")
 
         if name != "":
-            print(f"\n\nWelcome to Sal's Shippers, {name}.")
+            print(f"\n\nWelcome to Alex's Shippers, {name}.")
             print("\nWe take pride in providing our customers get the best, "
                   "and most affordable experience shipping their packages.")
             return name
