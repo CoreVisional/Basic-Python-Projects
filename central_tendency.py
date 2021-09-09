@@ -278,37 +278,37 @@ def print_result(mode: str, result: Union[str, list[str]]) -> None:
     print(f"\n{mode}: {result}")
 
 
-def should_calculate_again():
+def should_calculate_again() -> bool:
     """Asks the user if they want to calculate again.
 
-    Restarts program if True, else prints a message
-    telling the user that the program has exited.
+    Returns:
+        True if the user wants to perform another
+        calculation, False otherwise.
 
     """
-    if ask_user_yes_no("\n\nWould you like to perform "
-                       "another calculation? (Y/N): "):
-        return start_calculation()
-    else:
-        print("\n\n-----Program Exited-----\n")
+    return ask_user_yes_no("\n\nWould you like to perform "
+                           "another calculation? (Y/N): ")
 
 
-def start_calculation() -> None:
+def main() -> None:
     """A function that initializes the calling of the
     other functions to start the program.
 
+    Restarts program if should_calculate_again() returns True, else prints 
+    a message telling the user that the program has exited.
+
     """
-    user_option = select_choice()
+    while True:
+        user_option = select_choice()
 
-    check_choices(user_option)
+        check_choices(user_option)
 
-    should_calculate_again()
+        if not should_calculate_again():
+            break
 
-
-def main():
-
-    if __name__ == "__main__":
-        doctest.testmod()
-        start_calculation()
+    print("\n\n-----Program Exited-----\n\n")
 
 
-main()
+if __name__ == "__main__":
+    doctest.testmod()
+    main()
