@@ -27,27 +27,32 @@ def greet_user():
         print("\nUsername Required!")
 
 
-def ask_user_yes_no(yes_no_question):
-    """Simplify if/else in determining the correct answers from the user input.
+def ask_user_yes_no(yes_no_question) -> bool:
+    """Simplifies if/else to determine the correct answers from the user input.
 
-    Returns True if the user answer the prompt with
-    any of the values in choice_yes.
+    Args:
+        yes_no_question: A string that asks user a yes or no question.
 
-    Returns False if the user enters any of the values in choice_no.
+    Returns:
+        True if the user's answer is in CHOICE_YES,
+        and False otherwise.
+
+        Prints a message to the user if their input are not similar
+        to the ones in CHOICE_YES and CHOICE_NO.
 
     """
-    choice_yes = ["yes", 'y']
-    choice_no = ["no", 'n']
+    CHOICE_YES = ("yes", 'y')
+    CHOICE_NO = ("no", 'n')
 
     while True:
         user_choice = input(yes_no_question).lower()
 
-        if user_choice in choice_yes:
+        if user_choice in CHOICE_YES:
             return True
-        elif user_choice in choice_no:
+        elif user_choice in CHOICE_NO:
             return False
-
-        print("\n\nInvalid Input. Try again.")
+        else:
+            print("\nInvalid Input. Try again.")
 
 
 def flip_coin():

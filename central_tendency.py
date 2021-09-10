@@ -18,32 +18,32 @@ COMMON_MEASUREMENTS = """\n\nSelect An Option:
 """
 
 
-def ask_user_yes_no(yes_no_question: str) -> bool:
+def ask_user_yes_no(yes_no_question) -> bool:
     """Simplifies if/else to determine the correct answers from the user input.
 
     Args:
         yes_no_question: A string that asks user a yes or no question.
 
     Returns:
-        True if the user's answer is in choice_yes,
+        True if the user's answer is in CHOICE_YES,
         and False otherwise.
 
         Prints a message to the user if their input are not similar
-        to the ones in choice_yes and choice_no.
+        to the ones in CHOICE_YES and CHOICE_NO.
 
     """
-    choice_yes = ('yes', 'y')
-    choice_no = ('no', 'n')
+    CHOICE_YES = ("yes", 'y')
+    CHOICE_NO = ("no", 'n')
 
     while True:
         user_choice = input(yes_no_question).lower()
 
-        if user_choice in choice_yes:
+        if user_choice in CHOICE_YES:
             return True
-        elif user_choice in choice_no:
+        elif user_choice in CHOICE_NO:
             return False
         else:
-            print("\n\nInvalid Input. Try again.")
+            print("\nInvalid Input. Try again.")
 
 
 def get_number_dataset() -> list:
