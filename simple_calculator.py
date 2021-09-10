@@ -80,7 +80,7 @@ def count_number_input():
 
 def get_number_list():
     """Ask the user to input that they wish to calculate.
-    
+
     Displays an error message if the prompt contains a null
     or non-numerical values.
 
@@ -205,6 +205,6 @@ def should_calculate_again():
             break
 
 
-doctest.testmod()
-
-should_calculate_again()
+if __name__ == "__main__":
+    doctest.testmod()
+    should_calculate_again()
