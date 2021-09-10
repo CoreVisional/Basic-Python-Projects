@@ -3,7 +3,7 @@ import random
 
 
 # Indicate all possible coin sides
-COIN_SIDES = ["heads", "tails"]
+COIN_SIDES = ("heads", "tails")
 
 
 def greet_user():
