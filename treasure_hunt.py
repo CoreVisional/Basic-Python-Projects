@@ -26,7 +26,7 @@ ____/______/______/______/______/_____"=.o|o_.--""___/______/______/______/____
 def choose_colours() -> None:
     """Asks the player to pick a door colour."""
     print("\n\nYou arrive at the island unharmed. There is a house with 3 doors of different colours.")
-    print("\nDoor Colours: Red, Yellow, Blue")
+    print("\nDoor Colours:\033[91m Red\033[0m,\033[93m Yellow\033[0m,\033[94m Blue\033[0m")
 
     colours = ["red", "yellow", "blue"]
 
@@ -66,12 +66,12 @@ def ask_wait_or_swim() -> None:
 def ask_left_right() -> None:
     """Asks the player to choose left or right."""
     while True:
-        left_right = input(
-            "\nYou're at a cross road. Where do you want to go? Left / Right: ").lower()
-        if left_right == "right":
+        print("\n\nYou are at a cross road, and you can only go left or right. Where do you want to go?")
+        left_or_right = input("\nLeft / Right: ").lower()
+        if left_or_right == "right":
             print("\nYou fell into a hole. Game Over.\n")
             break
-        elif left_right == "left":
+        elif left_or_right == "left":
             ask_wait_or_swim()
             break
         else:
@@ -80,7 +80,6 @@ def ask_left_right() -> None:
 
 def play_game():
     """Starts the game."""
-
     print(ASCII_TREASURE_ART)
     print("\nWelcome to Treasure Island.")
     print("\nYour mission is to find the treasure.")
