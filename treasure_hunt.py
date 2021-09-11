@@ -26,7 +26,8 @@ ____/______/______/______/______/_____"=.o|o_.--""___/______/______/______/____
 def choose_colours() -> None:
     """Asks the player to pick a door colour."""
     print("\n\nYou arrive at the island unharmed. There is a house with 3 doors of different colours.")
-    print("\nDoor Colours:\033[91m Red\033[0m,\033[93m Yellow\033[0m,\033[94m Blue\033[0m")
+    print(
+        "\nDoor Colours:\033[91m Red\033[0m,\033[93m Yellow\033[0m,\033[94m Blue\033[0m")
 
     colours = ["red", "yellow", "blue"]
 
