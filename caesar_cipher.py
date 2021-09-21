@@ -2,6 +2,28 @@
 from string import ascii_letters, ascii_lowercase, ascii_uppercase
 
 
+CAESAR_CIPHER_ASCII_ART = """
+
+           
+ ,adPPYba, ,adPPYYba,  ,adPPYba, ,adPPYba, ,adPPYYba, 8b,dPPYba,  
+a8"     "" ""     `Y8 a8P_____88 I8[    "" ""     `Y8 88P'   "Y8  
+8b         ,adPPPPP88 8PP"""""""  `"Y8ba,  ,adPPPPP88 88          
+"8a,   ,aa 88,    ,88 "8b,   ,aa aa    ]8I 88,    ,88 88          
+ `"Ybbd8"' `"8bbdP"Y8  `"Ybbd8"' `"YbbdP"' `"8bbdP"Y8 88   
+            88             88                                 
+           ""             88                                 
+                          88                                 
+ ,adPPYba, 88 8b,dPPYba,  88,dPPYba,   ,adPPYba, 8b,dPPYba,  
+a8"     "" 88 88P'    "8a 88P'    "8a a8P_____88 88P'   "Y8  
+8b         88 88       d8 88       88 8PP""""""" 88          
+"8a,   ,aa 88 88b,   ,a8" 88       88 "8b,   ,aa 88          
+ `"Ybbd8"' 88 88`YbbdP"'  88       88  `"Ybbd8"' 88          
+              88                                             
+              88           
+
+"""
+
+
 def get_mode():
     """Return a string containing the user's input.
 
@@ -11,7 +33,7 @@ def get_mode():
 
     """
     while True:
-        mode = input("\n\nEncrypt or Decrypt: ").lower()
+        mode = input("\nEncrypt or Decrypt: ").lower()
         if mode in "encrypt e decrypt d".split():
             return mode
         else:
@@ -131,23 +153,37 @@ def translate_message(message: str, offset):
 
 
 def should_translate_again():
-    """Ask whether or not the user wants to encrypt ot decrypt again.
+    """Asks the user if they want to encode or decode another text.
 
-    Restarts the program if the user wants to perform
-    further encryption or decryption.
-
-    Exits the program if the user does not want to continue with the program.
+    Returns True if yes, False otherwise.
 
     """
+    return ask_user_yes_no("\n\nWould you like to encrypt or "
+                           "decrypt another message? (Y/N): ")
+
+
+def start_program():
+    """Starts the program.
+    
+    Restarts the program if the user wants to encode or
+    decode another message.
+
+    Prints out a message telling the user that the program has ended
+    if they do not wish to continue with the program.
+    
+    """
+    print(CAESAR_CIPHER_ASCII_ART)
+
     while True:
         user_text, key_rotation = get_message(), get_key()
 
         translate_message(user_text, key_rotation)
 
-        if not ask_user_yes_no("\n\nWould you like to encrypt or "
-                               "decrypt another message? (Y/N): "):
-            print("\n\n-----Program Exited-----\n")
+        if not should_translate_again:
             break
 
+    print("\n\n-----Program Exited-----\n")
 
-should_translate_again()
+
+if __name__ == "__main__":
+    start_program()
