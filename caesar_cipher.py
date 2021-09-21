@@ -152,7 +152,7 @@ def translate_message(message: str, offset):
 #         print(f"\t{translate_message(message, char)}")
 
 
-def should_translate_again():
+def should_cipher_again():
     """Asks the user if they want to encode or decode another text.
 
     Returns True if yes, False otherwise.
@@ -179,7 +179,7 @@ def start_program():
 
         translate_message(user_text, key_rotation)
 
-        if not should_translate_again:
+        if not should_cipher_again:
             break
 
     print("\n\n-----Program Exited-----\n")
