@@ -4,6 +4,22 @@ from os import system
 from typing import Union
 
 
+GAVEL_LOGO = r"""
+                         ___________
+                         \         /
+                          )_______(
+                          |'''''''|_.-._,.---------.,_.-._
+                          |       | | |               | | ''-.
+                          |       |_| |_             _| |_..-'
+                          |_______| '-' `'---------'` '-'
+                          )'''''''(
+                         /_________\\
+                       .-------------.
+                      /_______________\\
+
+"""
+
+
 def ask_user_yes_no(yes_no_question) -> bool:
     """Simplifies if/else to determine the correct answers from the user input.
 
@@ -128,6 +144,8 @@ def main() -> None:
 
     """
     _ = system('cls')
+
+    print(GAVEL_LOGO)
 
     bids = {}
 
