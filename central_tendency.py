@@ -64,7 +64,7 @@ def get_number_dataset() -> list:
         try:
             number_dataset = [literal_eval(num) for num in user_number_input]
         except ValueError:
-            print(f"\nNumbers Only For Mean and Median!")
+            print("\nNumbers Only For Mean and Median!")
             print(f"\nYour Input: {''.join(user_number_input).strip('')}")
             continue
 
@@ -294,7 +294,7 @@ def main() -> None:
     """A function that initializes the calling of the
     other functions to start the program.
 
-    Restarts program if should_calculate_again() returns True, else prints 
+    Restarts program if should_calculate_again() returns True, else prints
     a message telling the user that the program has exited.
 
     """
