@@ -104,12 +104,13 @@ def ask_user_yes_no(yes_no_question) -> bool:
     while True:
         user_choice = input(yes_no_question).lower()
 
-        if (user_choice not in choice_yes) and (user_choice not in choice_no):
-            print("\nInvalid Input. Try again.")
-        elif user_choice in choice_yes:
+        if user_choice in choice_yes:
             return True
-        elif user_choice in choice_no:
+
+        if user_choice in choice_no:
             return False
+
+        print("\nInvalid Input. Try again.")
 
 
 def alphabet_position(shift):
