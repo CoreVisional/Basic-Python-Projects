@@ -1,4 +1,6 @@
 
+"""Encodes or decodes a message using Vignere Cipher method."""
+
 from string import ascii_letters
 
 
@@ -17,10 +19,11 @@ def get_mode(text, key):
 
         if mode in "encrypt e".split():
             return encode_message(text, key)
-        elif mode in "decrypt d".split():
+
+        if mode in "decrypt d".split():
             return decode_message(text, key)
-        else:
-            print("\n\nInvalid input. Only 'encrypt', 'e', 'decrypt', or 'd'.")
+
+        print("\n\nInvalid input. Only 'encrypt', 'e', 'decrypt', or 'd'.")
 
 
 def get_message():
@@ -37,8 +40,8 @@ def get_message():
 
         if (not message.isdigit()) and (message != ""):
             return message
-        else:
-            print("\n\nInput must not be null or contain any numeric value.")
+
+        print("\n\nInput must not be null or contain any numeric value.")
 
 
 def get_keyword():
@@ -57,8 +60,8 @@ def get_keyword():
 
         if (not letter_key.isdigit()) and (letter_key != ""):
             return letter_key
-        else:
-            print("\n\nKeyword must be a string.")
+
+        print("\n\nKeyword must be a string.")
 
 
 def ask_user_yes_no(yes_no_question) -> bool:
@@ -75,18 +78,19 @@ def ask_user_yes_no(yes_no_question) -> bool:
         to the ones in CHOICE_YES and CHOICE_NO.
 
     """
-    CHOICE_YES = ("yes", 'y')
-    CHOICE_NO = ("no", 'n')
+    choice_yes = ("yes", 'y')
+    choice_no = ("no", 'n')
 
     while True:
         user_choice = input(yes_no_question).lower()
 
-        if user_choice in CHOICE_YES:
+        if user_choice in choice_yes:
             return True
-        elif user_choice in CHOICE_NO:
+
+        if user_choice in choice_no:
             return False
-        else:
-            print("\nInvalid Input. Try again.")
+
+        print("\nInvalid Input. Try again.")
 
 
 def encode_message(plaintext, key):
