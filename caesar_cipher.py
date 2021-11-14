@@ -1,4 +1,6 @@
 
+"""Encodes or decodes a message using Caesar Cipher method."""
+
 from string import ascii_letters, ascii_lowercase, ascii_uppercase
 
 
@@ -7,19 +9,19 @@ CAESAR_CIPHER_ASCII_ART = """
            
  ,adPPYba, ,adPPYYba,  ,adPPYba, ,adPPYba, ,adPPYYba, 8b,dPPYba,  
 a8"     "" ""     `Y8 a8P_____88 I8[    "" ""     `Y8 88P'   "Y8  
-8b         ,adPPPPP88 8PP"""""""  `"Y8ba,  ,adPPPPP88 88          
-"8a,   ,aa 88,    ,88 "8b,   ,aa aa    ]8I 88,    ,88 88          
- `"Ybbd8"' `"8bbdP"Y8  `"Ybbd8"' `"YbbdP"' `"8bbdP"Y8 88   
-            88             88                                 
-           ""             88                                 
-                          88                                 
- ,adPPYba, 88 8b,dPPYba,  88,dPPYba,   ,adPPYba, 8b,dPPYba,  
-a8"     "" 88 88P'    "8a 88P'    "8a a8P_____88 88P'   "Y8  
-8b         88 88       d8 88       88 8PP""""""" 88          
-"8a,   ,aa 88 88b,   ,a8" 88       88 "8b,   ,aa 88          
- `"Ybbd8"' 88 88`YbbdP"'  88       88  `"Ybbd8"' 88          
-              88                                             
-              88           
+8b         ,adPPPPP88 8PP"""""""  `"Y8ba,  ,adPPPPP88 88
+"8a,   ,aa 88,    ,88 "8b,   ,aa aa    ]8I 88,    ,88 88
+ `"Ybbd8"' `"8bbdP"Y8  `"Ybbd8"' `"YbbdP"' `"8bbdP"Y8 88
+            88             88
+           ""             88
+                          88
+ ,adPPYba, 88 8b,dPPYba,  88,dPPYba,   ,adPPYba, 8b,dPPYba,
+a8"     "" 88 88P'    "8a 88P'    "8a a8P_____88 88P'   "Y8
+8b         88 88       d8 88       88 8PP""""""" 88
+"8a,   ,aa 88 88b,   ,a8" 88       88 "8b,   ,aa 88
+ `"Ybbd8"' 88 88`YbbdP"'  88       88  `"Ybbd8"' 88
+              88
+              88
 
 """
 
@@ -92,22 +94,22 @@ def ask_user_yes_no(yes_no_question) -> bool:
         True if the user's answer is in CHOICE_YES,
         and False otherwise.
 
-        Prints a message to the user if their input are not similar
-        to the ones in CHOICE_YES and CHOICE_NO.
+        Prints a message to the user if their input are not the same as
+        the ones in CHOICE_YES and CHOICE_NO.
 
     """
-    CHOICE_YES = ("yes", 'y')
-    CHOICE_NO = ("no", 'n')
+    choice_yes = ("yes", 'y')
+    choice_no = ("no", 'n')
 
     while True:
         user_choice = input(yes_no_question).lower()
 
-        if user_choice in CHOICE_YES:
-            return True
-        elif user_choice in CHOICE_NO:
-            return False
-        else:
+        if (user_choice not in choice_yes) and (user_choice not in choice_no):
             print("\nInvalid Input. Try again.")
+        elif user_choice in choice_yes:
+            return True
+        elif user_choice in choice_no:
+            return False
 
 
 def alphabet_position(shift):
@@ -164,13 +166,13 @@ def should_cipher_again():
 
 def start_program():
     """Starts the program.
-    
+
     Restarts the program if the user wants to encode or
     decode another message.
 
     Prints out a message telling the user that the program has ended
     if they do not wish to continue with the program.
-    
+
     """
     print(CAESAR_CIPHER_ASCII_ART)
 
@@ -179,7 +181,7 @@ def start_program():
 
         translate_message(user_text, key_rotation)
 
-        if not should_cipher_again:
+        if not should_cipher_again():
             break
 
     print("\n\n-----Program Exited-----\n")
