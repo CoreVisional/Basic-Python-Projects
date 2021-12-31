@@ -1,7 +1,7 @@
 
-from os import system
+"""A CLI-based Bidding Game."""
 
-from typing import Union
+from os import system
 
 
 GAVEL_LOGO = r"""
@@ -27,34 +27,35 @@ def ask_user_yes_no(yes_no_question) -> bool:
         yes_no_question: A string that asks user a yes or no question.
 
     Returns:
-        True if the user's answer is in CHOICE_YES,
+        True if the user's answer is in choice_yes,
         and False otherwise.
 
         Prints a message to the user if their input are not similar
-        to the ones in CHOICE_YES and CHOICE_NO.
+        to the ones in choice_yes and choice_no.
 
     """
-    CHOICE_YES = ("yes", 'y')
-    CHOICE_NO = ("no", 'n')
+    choice_yes = ("yes", 'y')
+    choice_no = ("no", 'n')
 
     while True:
         user_choice = input(yes_no_question).lower()
 
-        if user_choice in CHOICE_YES:
+        if user_choice in choice_yes:
             return True
-        elif user_choice in CHOICE_NO:
+
+        if user_choice in choice_no:
             return False
-        else:
-            print("\nInvalid Input. Try again.")
+
+        print("\nInvalid Input. Try again.")
 
 
 def get_bidder_name() -> str:
-    """Asks the bidder to type in their name.
+    """Ask the bidder to type in their name.
 
     Returns:
         A string containing the bidder's name.
 
-    This is repeated until the bidder has provided a 
+    This is repeated until the bidder has provided a
     name to the program.
 
     """
@@ -91,8 +92,8 @@ def get_bidding_price() -> float:
             return price
 
 
-def get_highest_bid(bidding_record: dict) -> Union[tuple[str, float]]:
-    """Finds the highest bidder and bidding amount.
+def get_highest_bid(bidding_record: dict) -> tuple[str, float]:
+    """Find the highest bidder and bidding amount.
 
     Args:
         bidding_record: A dictionary containing all the names of the
@@ -112,7 +113,7 @@ def get_highest_bid(bidding_record: dict) -> Union[tuple[str, float]]:
 
 
 def print_auction_winner(bidding_record: dict) -> None:
-    """Prints out the auction winner and the bid amount.
+    """Print out the auction winner and the bid amount.
 
     Args:
         bidding_record: A dictionary that contains the winner's name
@@ -126,8 +127,7 @@ def print_auction_winner(bidding_record: dict) -> None:
 
 
 def check_other_bidders() -> bool:
-    """Asks the user if there are other bidders who
-    would like to bid against the user.
+    """Ask the user if there are other bidders.
 
     Returns:
         True if there are other bidders, False otherwise.
@@ -137,13 +137,13 @@ def check_other_bidders() -> bool:
 
 
 def main() -> None:
-    """Starts the program.
+    """Start the program.
 
     Loops the program if there are other bidders, otherwise, prints the
     winner of the secret auction.
 
     """
-    _ = system('cls')
+    _ = system("clear")
 
     print(GAVEL_LOGO)
 
