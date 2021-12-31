@@ -127,8 +127,9 @@ def alphabet_position(shift):
 
 
 def translate_message(message: str, offset):
-    """Return a string of the encrypted message with each
-    character mapped to the given translation table.
+    """Return a strings containing the encrypted message.
+
+    Each character of the encrypted message is mapped to the given translation table.
 
     Rearranges the ordinal numbers of the alphabets with
     the given offset including uppercase letters.
@@ -166,7 +167,7 @@ def should_cipher_again():
 
 
 def start_program():
-    """Starts the program.
+    """Start the program.
 
     Restarts the program if the user wants to encode or
     decode another message.
