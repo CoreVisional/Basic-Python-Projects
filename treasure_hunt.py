@@ -1,3 +1,4 @@
+"""A CLI-based Treasure Hunt game."""
 
 ASCII_TREASURE_ART = '''
 *******************************************************************************
@@ -25,7 +26,8 @@ ____/______/______/______/______/_____"=.o|o_.--""___/______/______/______/____
 
 def choose_colours() -> None:
     """Asks the player to pick a door colour."""
-    print("\n\nYou arrive at the island unharmed. There is a house with 3 doors of different colours.")
+    print("\n\nYou arrive at the island unharmed. There is a house "
+        "with 3 doors of different colours.")
     print(
         "\nDoor Colours:\033[91m Red\033[0m,\033[93m Yellow\033[0m,\033[94m Blue\033[0m")
 
@@ -36,14 +38,16 @@ def choose_colours() -> None:
         if colour_choice in colours[:1]:
             print("\nIt's a room full of fire. Game Over.\n")
             break
-        elif colour_choice in colours[:2]:
+
+        if colour_choice in colours[:2]:
             print("\nYou found the treasure! You Win!\n")
             break
-        elif colour_choice in colours[-1]:
+
+        if colour_choice in colours[-1]:
             print("\nYou enter a room of beasts. Game Over.\n")
             break
-        else:
-            print("\nRed, Yellow, and Blue Only!")
+
+        print("\nRed, Yellow, and Blue Only!")
 
 
 def ask_wait_or_swim() -> None:
@@ -57,30 +61,33 @@ def ask_wait_or_swim() -> None:
         if wait_or_swim == "swim":
             print("\nYou get attacked by an angry trout. Game Over.\n")
             break
-        elif wait_or_swim == "wait":
+
+        if wait_or_swim == "wait":
             choose_colours()
             break
-        else:
-            print("\nWait or Swim Only!")
+
+        print("\nWait or Swim Only!")
 
 
 def ask_left_right() -> None:
     """Asks the player to choose left or right."""
     while True:
-        print("\n\nYou are at a cross road, and you can only go left or right. Where do you want to go?")
+        print("\n\nYou are at a cross road, and you can only go "
+            "left or right. Where do you want to go?")
         left_or_right = input("\nLeft / Right: ").lower()
         if left_or_right == "right":
             print("\nYou fell into a hole. Game Over.\n")
             break
-        elif left_or_right == "left":
+
+        if left_or_right == "left":
             ask_wait_or_swim()
             break
-        else:
-            print("\nLeft or Right Only!")
+
+        print("\nLeft or Right Only!")
 
 
 def play_game():
-    """Starts the game."""
+    """Start the game."""
     print(ASCII_TREASURE_ART)
     print("\nWelcome to Treasure Island.")
     print("\nYour mission is to find the treasure.")
