@@ -1,4 +1,6 @@
 
+"""A simple CLI-based calculator."""
+
 import operator
 
 from functools import reduce
